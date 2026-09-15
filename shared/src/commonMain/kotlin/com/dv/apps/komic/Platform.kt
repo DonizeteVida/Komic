@@ -1,7 +1,9 @@
 package com.dv.apps.komic
 
-interface Platform {
-    val name: String
-}
+import androidx.compose.runtime.staticCompositionLocalOf
 
-expect fun getPlatform(): Platform
+expect class Folder
+
+val LocalFolderPicker = staticCompositionLocalOf<suspend () -> Folder?> {
+    { null }
+}
