@@ -1,11 +1,31 @@
+@file:OptIn(
+    androidx.compose.ui.ExperimentalComposeUiApi::class,
+    kotlin.js.ExperimentalWasmJsInterop::class
+)
+
 package com.dv.apps.komic
 
-import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.window.ComposeViewport
 
-@OptIn(ExperimentalComposeUiApi::class)
+private val folderPicker: suspend () -> Folder? = {
+    val options = createDirectoryPickerOptions(
+        startIn = "downloads"
+    )
+
+    val fileSystemDirectoryHandle = showDirectoryPicker(
+        options
+    ).await()
+
+    fileSystemDirectoryHandle
+}
+
 fun main() {
     ComposeViewport {
-        App()
+        CompositionLocalProvider(
+            LocalFolderPicker provides folderPicker
+        ) {
+            App()
+        }
     }
 }
