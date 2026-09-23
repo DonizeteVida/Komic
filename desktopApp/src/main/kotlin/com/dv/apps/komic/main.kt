@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 @Composable
 private fun registerFolderPicker(
@@ -21,17 +23,23 @@ private fun registerFolderPicker(
     }
 }
 
-fun main() = application {
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "Komic",
-    ) {
-        val folderPicker = registerFolderPicker(window)
-
-        CompositionLocalProvider(
-            LocalFolderPicker provides folderPicker
+fun main() {
+    startKoin {
+        printLogger(Level.DEBUG)
+        modules()
+    }
+    application {
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = "Komic",
         ) {
-            App()
+            val folderPicker = registerFolderPicker(window)
+
+            CompositionLocalProvider(
+                LocalFolderPicker provides folderPicker
+            ) {
+                App()
+            }
         }
     }
 }
