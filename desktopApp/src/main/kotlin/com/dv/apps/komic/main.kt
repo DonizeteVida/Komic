@@ -8,17 +8,20 @@ import org.koin.core.logger.Level
 
 private fun registerFolderPicker(
     parent: androidx.compose.ui.awt.ComposeWindow
-): suspend () -> Folder? = {
+): suspend () -> Folder? = lambda@{
     val fc = javax.swing.JFileChooser().apply {
         fileSelectionMode = javax.swing.JFileChooser.DIRECTORIES_ONLY
     }
-    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+
+    val file = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
         val ret = fc.showOpenDialog(parent)
         when (ret) {
             javax.swing.JFileChooser.APPROVE_OPTION -> fc.selectedFile
             else -> null
         }
-    }
+    } ?: return@lambda null
+
+    Folder(file)
 }
 
 fun main() = application {

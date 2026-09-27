@@ -19,9 +19,9 @@ suspend fun <T: JsAny> Promise<T>.await(): T? = suspendCancellableCoroutine { co
     )
 }
 
-external class FileSystemDirectoryHandle : JsAny {
-    val name: String
-}
+external class FileSystemDirectoryHandle(
+    val name: String,
+) : JsAny
 
 fun createDirectoryPickerOptions(
     startIn: String? = null,

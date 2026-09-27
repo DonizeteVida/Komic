@@ -1,6 +1,5 @@
 package com.dv.apps.komic
 
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -11,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.dv.apps.komic.feature.settings.SettingsScreen
 import komic.shared.generated.resources.*
 import org.jetbrains.compose.resources.*
 
@@ -51,8 +51,12 @@ fun Navigation() {
             }
         }
     ) {
-        Button(onClick = {}) {
-            Text("Hello World!")
+        when (currentDestination) {
+            Destination.HOME -> Text("Home")
+            Destination.SHELF -> Text("Shelf!")
+            Destination.SETTINGS -> {
+                SettingsScreen()
+            }
         }
     }
 }

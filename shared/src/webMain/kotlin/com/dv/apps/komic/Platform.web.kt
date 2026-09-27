@@ -1,3 +1,5 @@
 package com.dv.apps.komic
 
-actual typealias Folder = FileSystemDirectoryHandle
+actual class Folder(val fileSystemDirectoryHandle: FileSystemDirectoryHandle)
+
+actual fun FolderConstructor(path: String) = Folder(FileSystemDirectoryHandle(path))
