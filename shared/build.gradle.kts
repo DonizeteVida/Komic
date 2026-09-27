@@ -70,6 +70,7 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.material3.adaptive.navigation.suite)
             api(project.dependencies.platform(libs.koin.bom))
             api(libs.koin.core)
         }
