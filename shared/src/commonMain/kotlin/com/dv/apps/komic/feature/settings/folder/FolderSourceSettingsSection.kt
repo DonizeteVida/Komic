@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dv.apps.komic.Folder
@@ -17,6 +16,7 @@ import com.dv.apps.komic.domain.model.FolderSettings
 import com.dv.apps.komic.feature.settings.SettingsSection
 import komic.shared.generated.resources.Res
 import komic.shared.generated.resources.ic_folder_add
+import komic.shared.generated.resources.ic_folder_sync
 import komic.shared.generated.resources.settings_section_selected_folders_title
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -28,7 +28,8 @@ internal data class State(
 )
 
 internal sealed interface Intent {
-    data class OnFileTreeSelected(val folder: Folder?) : Intent
+    data object OnFolderSyncRequested : Intent
+    data class OnFolderSelected(val folder: Folder?) : Intent
 }
 
 @Composable
@@ -62,18 +63,33 @@ internal fun FolderSourceSettingsSection(
                 style = MaterialTheme.typography.titleMedium
             )
 
-            IconButton(
-                onClick = {
-                    co.launch {
-                        val folder = folderPicker()
-                        dispatchIntent(Intent.OnFileTreeSelected(folder))
+            Row {
+                IconButton(
+                    onClick = {
+                        co.launch {
+                            dispatchIntent(Intent.OnFolderSyncRequested)
+                        }
                     }
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.ic_folder_sync),
+                        contentDescription = ""
+                    )
                 }
-            ) {
-                Icon(
-                    painterResource(Res.drawable.ic_folder_add),
-                    contentDescription = ""
-                )
+
+                IconButton(
+                    onClick = {
+                        co.launch {
+                            val folder = folderPicker()
+                            dispatchIntent(Intent.OnFolderSelected(folder))
+                        }
+                    }
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.ic_folder_add),
+                        contentDescription = ""
+                    )
+                }
             }
         }
 

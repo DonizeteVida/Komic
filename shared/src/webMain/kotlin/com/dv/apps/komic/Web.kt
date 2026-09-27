@@ -23,6 +23,10 @@ external class FileSystemDirectoryHandle(
     val name: String,
 ) : JsAny
 
+fun FileSystemDirectoryHandleConstructor(name: String): FileSystemDirectoryHandle = js(
+    "({ name })"
+)
+
 fun createDirectoryPickerOptions(
     startIn: String? = null,
 ): JsAny = js(
