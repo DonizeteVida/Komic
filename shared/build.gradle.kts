@@ -74,6 +74,7 @@ kotlin {
             implementation(libs.material3.adaptive.navigation.suite)
             api(project.dependencies.platform(libs.koin.bom))
             api(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

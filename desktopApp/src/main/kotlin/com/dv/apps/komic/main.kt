@@ -3,6 +3,7 @@ package com.dv.apps.komic
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.dv.apps.komic.di.mainModule
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
@@ -27,7 +28,7 @@ private fun registerFolderPicker(
 fun main() = application {
     startKoin {
         printLogger(Level.DEBUG)
-        modules()
+        modules(mainModule)
     }
     Window(
         onCloseRequest = ::exitApplication,

@@ -1,6 +1,7 @@
 package com.dv.apps.komic
 
 import android.app.Application
+import com.dv.apps.komic.di.mainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -12,7 +13,7 @@ class MainApplication : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@MainApplication)
-            modules()
+            modules(mainModule)
         }
     }
 }
